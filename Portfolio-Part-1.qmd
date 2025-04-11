@@ -1,0 +1,72 @@
+---
+title: "PA 3: Using Data Visualization to Find the Penguins"
+author: Michael Torrisi, 
+format: html
+editor: source
+execute: 
+  echo: true
+  error: true
+code-fold: true
+toc: true
+---
+
+# Portfolio Part 1
+
+## Data Description
+
+Identify your data source.
+> My data source will be the Tidy Tuesday repository on Github. 
+
+
+Describe your data, including variables and data types.
+> My data is made up of International Math Olympiad results beginning in 1959 when the IMO was first held. 
+> The variable names are as follows:
+    year,contestant,country,p1,p2,p3,p4,p5,p6,p7,total,individual_rank,award
+> Year, p1 through p7, total, and individual_rank will all be dbl numeric variables. The rest will be charachter variables.
+
+Identify the research questions you want to answer.
+> My research question is "Which countries have produced the most IMO contestants who recieved gold medals?"
+
+
+## Data Visualization
+
+What do you want your final visualizations to look like?
+> The main visualization will likely be a line graph with the number of gold medalists on the y axis, year on the x axis, and country denoted by different color lines. I would also like to have similar visualizations for silver, bronze, and honourable mentions. I will also likely have visualizations of larger countries' proportions of gold, silver, bronze and honourable mentions over time.
+
+What do you want to highlight on your final visualizations in order to answer your research questions? How do you plan to do that?
+> I want to highlight the differences in IMO medalists between countries, as well as how certian countries' overall performance in the IMO has changed over time.
+
+What is missing from your data or would need to change in your data to create these visualizations?
+> A lot of what I need to do is basic data cleaning, but there may be some transformations I need to do in order to get the visualizations that I want.
+
+## Data Cleaning
+
+The answer to at least three of these questions should be “YES” for the data to meet the necessary standards to demonstrate your cleaning. Your data source should not be an already perfectly prepared data set.
+
+Do you need to reformat any variables into different types (e.g. factors, time, dates, strings)? Or remove information from variable values?
+> Possibly YES.
+
+Do you need to deal with any missing data, especially missing data coded other than NA?
+> YES.
+
+Do you need to filter your data? How?
+> YES. I need to filter by each medal type, as well as possibly needing to filter out certian countries.
+
+Do you need to create any new variables? What variables? How?
+> Possibly. The information I need is already contained the dataset, but I may need to depending on how I go about making my visualizations
+
+Do you need to add new data (join) to your data? What data? How?
+> Probably NO. The information I need is already contained the dataset.
+
+Are there any variables you can exclude from your data?
+> YES. For my analysis, individual problem scores, as well as exact rankings of particpants, are not necessary for my analysis.
+
+Do you need pivot your data in any way? Why? How?
+> Probably NO. I don't think my visalizations will requre a pivot.
+
+Do you need to summarize any of the variables? Which ones? How?
+> YES. I will need to get totals of each medal type per year per country, and that will require some summarize uses.
+
+What other aspects of your data need to be “fixed” in order to make your data visualizations?
+> I need to make sure all the country names are actual countries, as well as making sure that each country is named consistently throughout the dataset.
+
