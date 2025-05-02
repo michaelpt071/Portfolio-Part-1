@@ -108,14 +108,23 @@ IMO_gold_counts <- IMO_alltime_gold %>%
   mutate_if(is.integer, ~replace(., is.na(.), 0))
 ```
 
+```{r}
+write_csv(IMO_gold_counts, "data-clean/IMO_gold_counts.csv")
+```
+
 
 ## Part 2 - Data Visualization  
 
 Attempt to create a rough draft of at least one of your proposed visualizations.  Identify anything you want to modify in your visualization, but do not know how to do.
 
 ```{r}
-IMO_gold_counts %>% 
-  ggplot(aes(x = century20_gold, y = century21_gold)) +
-  geom_point()
+IMO_data %>% 
+  group_by(country, year) %>% 
+  summarise(yearly_gold = n()) %>% 
+  filter(country %in% c("Belgium", "Canada", "Denmark", "France", "Iceland", "Italy", "Luxembourg", "Netherlands", "Norway", "Portugal", "United Kingdom", "United States of America")) %>% 
+  ggplot(aes(y = yearly_gold, x = year, color = country)) +
+  geom_line()+
+  geom_point()+
+  theme_classic()
 ```
-
+> I want to make this graph easier to read, but I'm not sure what direction to go in. I would like some feedback on what I could modify to make it more legible while losing as little data as possible.
