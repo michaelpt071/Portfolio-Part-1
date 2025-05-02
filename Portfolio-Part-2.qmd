@@ -10,6 +10,12 @@ code-fold: true
 toc: true
 ---
 
+```{r}
+library(tidyverse)
+library(purrr)
+```
+
+
 # Portfolio: Data Cleaning and Rough Draft
 
 The Portfolio component is a place for you to put your R skills into action on a problem you are interested in with the goal of have a project you could share with future employers.
@@ -44,7 +50,72 @@ Each clean data set should be exported and saved in a folder within the project.
 
 Remember there needs to be at minimum 3 data transformations to meet the requirements of the project.
 
+```{r}
+IMO_data <- read_csv("data-raw/individual_results_df.csv")
+```
+```{r}
+IMO_alltime_gold <- IMO_data %>% 
+  mutate(award = substring(award, 1, 4),
+         name_lenth = str_length(country)) %>% 
+  filter(award == "Gold" | award == "Bron" | award == "Silv") %>% 
+  filter(name_lenth > 3) %>% 
+  mutate(award = case_when(award == "Gold" ~ "Gold",
+                           award == "Silv" ~ "Silver",
+                           award == "Bron" ~ "Bronze")) %>% 
+  select(year, country, award) %>% 
+  group_by(country) %>% 
+  summarise(alltime_gold = n(), .groups = "drop") %>% 
+  arrange(desc(alltime_gold))
+```
+
+
+```{r}
+IMO_21stcentury_gold <- IMO_data %>% 
+  filter(year >= 2000) %>% 
+  mutate(award = substring(award, 1, 4),
+         name_lenth = str_length(country)) %>% 
+  filter(award == "Gold" | award == "Bron" | award == "Silv") %>% 
+  filter(name_lenth > 3) %>% 
+  mutate(award = case_when(award == "Gold" ~ "Gold",
+                           award == "Silv" ~ "Silver",
+                           award == "Bron" ~ "Bronze")) %>% 
+  select(year, country, award) %>% 
+  group_by(country) %>% 
+  summarise(century21_gold = n()) %>% 
+  arrange(desc(century21_gold))
+```
+
+```{r}
+IMO_20thcentury_gold <- IMO_data %>% 
+  filter(year < 2000) %>% 
+  mutate(award = substring(award, 1, 4),
+         name_lenth = str_length(country)) %>% 
+  filter(award == "Gold" | award == "Bron" | award == "Silv") %>% 
+  filter(name_lenth > 3) %>% 
+  mutate(award = case_when(award == "Gold" ~ "Gold",
+                           award == "Silv" ~ "Silver",
+                           award == "Bron" ~ "Bronze")) %>% 
+  select(year, country, award) %>% 
+  group_by(country) %>% 
+  summarise(century20_gold = n()) %>% 
+  arrange(desc(century20_gold))
+```
+
+```{r}
+IMO_gold_counts <- IMO_alltime_gold %>% 
+  full_join(IMO_20thcentury_gold, by = "country") %>% 
+  full_join(IMO_21stcentury_gold, by = "country") %>% 
+  mutate_if(is.integer, ~replace(., is.na(.), 0))
+```
+
 
 ## Part 2 - Data Visualization  
 
 Attempt to create a rough draft of at least one of your proposed visualizations.  Identify anything you want to modify in your visualization, but do not know how to do.
+
+```{r}
+IMO_gold_counts %>% 
+  ggplot(aes(x = century20_gold, y = century21_gold)) +
+  geom_point()
+```
+
