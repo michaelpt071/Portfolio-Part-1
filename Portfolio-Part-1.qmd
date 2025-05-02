@@ -1,6 +1,6 @@
 ---
-title: "PA 3: Using Data Visualization to Find the Penguins"
-author: Michael Torrisi, 
+title: "Portfolio Part 1: Development and Planning"
+author: Michael Torrisi
 format: html
 editor: source
 execute: 
